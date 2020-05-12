@@ -46,7 +46,7 @@ def floatify(str):
     
 #loads the csv of monsters, and trims it for use.
 def load_monsters():
-    monsterFile = open('monster_list.csv', 'r', newline='')
+    monsterFile = open('monster_list_extra.csv', 'r', newline='')
     monsterReader = csv.reader(monsterFile)
     monsterData1 = list(monsterReader)
     monsterData = monsterData1[1:]
