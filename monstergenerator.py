@@ -13,7 +13,7 @@ Created on Sun May 10 15:46:13 2020
 import csv
 import random
 
-#gets information from user about party, with appropriate error messages. 
+#gets information from user about parameters of encounters
 def players_define():
     # player_number = input("How many players are in your party? > ")
     player_number = None
@@ -24,23 +24,24 @@ def players_define():
             print("Please enter a valid number.")
         else:
             player_number = new_player_number        
-    print(player_number)
-    player_level = input("What is the average level of your players? > ")
-    try:
-        player_level = float(player_level)
-    except ValueError:
-        print("Please enter a valid number!")
-    print(player_level)
-    print (f"Here are potential encounters for {player_number} players of average level {player_level}." + "\r\n")
+    player_level = None
+    while player_level == None:
+        input_player_level = input("What is the average level of your players? > ")
+        new_player_level = floatify(input_player_level)
+        if new_player_level == None:
+            print("Please enter a valid number.")
+        else:
+            player_level = new_player_level
+    print(f"Here are potential encounters for {player_number} players of average level {player_level}." + "\r\n")
     create_encounter(player_number, player_level)
     
+#turns inputs into floats
 def floatify(str):
     try:
         done = float(str)
     except ValueError:
         return None
-    return done
-    
+    return done   
     
     
 #loads the csv of monsters, and trims it for use.
@@ -48,7 +49,7 @@ def load_monsters():
     monsterFile = open('monster_list.csv', 'r', newline='')
     monsterReader = csv.reader(monsterFile)
     monsterData1 = list(monsterReader)
-    monsterData = monsterData1[1:]		# saves data from CSV to list
+    monsterData = monsterData1[1:]
     return(monsterData)
 
     
@@ -126,10 +127,5 @@ def tidy_print(list):
     with_spacing = printing + "\r\n"
     print(with_spacing)
     
-def quit_anytime():
-    sys.exit()
-    
     
 players_define()
-        
-# last thing: tidy it up with     
